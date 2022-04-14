@@ -1,0 +1,17 @@
+{
+  "restartable": "rs",
+  "ignore": [
+    ".git",
+    "node_modules"
+  ],
+  "verbose": true,
+  "watch": [
+    "./**/*.js"
+  ],
+  "env": {
+    "PORT": 1337,
+    "NODE_ENV": "development",
+    "INFURA_KEY": "56f15600ccf54b399abafc94de9c9d0d"
+  },
+  "ext": "js"
+}

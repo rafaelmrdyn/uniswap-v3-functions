@@ -1,0 +1,29 @@
+components:
+  schemas:
+    getAllocation:
+      type: object
+      properties:
+        amount1:
+          type: number
+        amount2:
+          type: number
+
+    getRewards:
+      type: object
+      properties:
+        amount1:
+          type: number
+        amount2:
+          type: number
+
+    getBalance:
+      type: object
+      properties:
+        ETH:
+          type: number
+
+    exitPosition:
+      type: object
+      properties:
+        success:
+          type: boolean
