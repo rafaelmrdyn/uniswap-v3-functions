@@ -23,8 +23,6 @@ const {ResponseCodes} = require("../../constants");
  *             properties:
  *               amount:
  *                  type: number
- *               pair:
- *                  type: string
  *               range:
  *                  type: number
  *     responses:
@@ -42,10 +40,10 @@ const {ResponseCodes} = require("../../constants");
  */
 router.post('/add-position', validate(uniswapV3PoolValidation.addPosition), async (req, res) => {
 
-    const { amount, pair, range } = req.body;
+    const { amount, range } = req.body;
 
     try {
-        const data = await UniV3Controller.addPosition(amount, pair, range);
+        const data = await UniV3Controller.addPosition(amount, range);
         res.status(ResponseCodes.OK).json(data);
     } catch (err) {
         res.status(ResponseCodes.BAD_REQUEST).json({
@@ -109,12 +107,6 @@ router.get('/tokenId/:txHash', validate(uniswapV3PoolValidation.getTokenId), asy
  *         schema:
  *           type: string
  *         description: token id
- *       - in: query
- *         name: pair
- *         required: true
- *         schema:
- *           type: string
- *         description: pair
  *     responses:
  *       "200":
  *         description: OK
@@ -128,10 +120,9 @@ router.get('/tokenId/:txHash', validate(uniswapV3PoolValidation.getTokenId), asy
 router.get('/allocation/:tokenId', transform(), validate(uniswapV3PoolValidation.getAllocation), async (req, res) => {
 
     const { tokenId } = req.params;
-    const { pair } = req.query;
 
     try {
-        const data = await UniV3Controller.getAllocation(tokenId, pair);
+        const data = await UniV3Controller.getAllocation(tokenId);
         res.status(ResponseCodes.OK).json(data);
     } catch (err) {
         res.status(ResponseCodes.BAD_REQUEST).json({
@@ -156,12 +147,6 @@ router.get('/allocation/:tokenId', transform(), validate(uniswapV3PoolValidation
  *         schema:
  *           type: string
  *         description: token id
- *       - in: query
- *         name: pair
- *         required: true
- *         schema:
- *           type: string
- *         description: pair
  *     responses:
  *       "200":
  *         description: OK
@@ -175,10 +160,9 @@ router.get('/allocation/:tokenId', transform(), validate(uniswapV3PoolValidation
 router.get('/rewards/:tokenId', transform(), validate(uniswapV3PoolValidation.getRewards), async (req, res) => {
 
     const { tokenId } = req.params;
-    const { pair } = req.query;
 
     try {
-        const data = await UniV3Controller.getRewards(tokenId, pair);
+        const data = await UniV3Controller.getRewards(tokenId);
         res.status(ResponseCodes.OK).json(data);
     } catch (err) {
         res.status(ResponseCodes.BAD_REQUEST).json({
@@ -187,39 +171,27 @@ router.get('/rewards/:tokenId', transform(), validate(uniswapV3PoolValidation.ge
     }
 });
 
-// /**
-//  * @swagger
-//  * /uniV3/subscribe-price-change:
-//  *   post:
-//  *     summary: Subscribe price change.
-//  *     description: Subscribe price change.
-//  *     tags: [UniV3]
-//  *     requestBody:
-//  *       required: true
-//  *       content:
-//  *         application/json:
-//  *           schema:
-//  *             properties:
-//  *               pair:
-//  *                  type: string
-//  *               fee:
-//  *                  type: number
-//  *     responses:
-//  *       "200":
-//  *         description: OK
-//  *         content:
-//  *           application/json:
-//  *             schema:
-//  *                 $ref: '#/components/schemas/getAllocation'
-//  *       "400":
-//  *         $ref: '#/components/responses/BadRequest'
-//  */
+/**
+ * @swagger
+ * /uniV3/subscribe-price-change:
+ *   post:
+ *     summary: Subscribe price change.
+ *     description: Subscribe price change.
+ *     tags: [UniV3]
+ *     responses:
+ *       "200":
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *                 $ref: '#/components/schemas/getAllocation'
+ *       "400":
+ *         $ref: '#/components/responses/BadRequest'
+ */
 router.post('/subscribe-price-change', validate(uniswapV3PoolValidation.subscribePriceChange), async (req, res) => {
 
-    const { pair, fee } = req.body;
-
     try {
-        const data = await UniV3Controller.subscribePriceChange(pair, fee);
+        const data = await UniV3Controller.subscribePriceChange();
         res.status(ResponseCodes.OK).json(data);
     } catch (err) {
         res.status(ResponseCodes.BAD_REQUEST).json({
@@ -243,8 +215,6 @@ router.post('/subscribe-price-change', validate(uniswapV3PoolValidation.subscrib
  *             properties:
  *               tokenId:
  *                  type: number
- *               pair:
- *                  type: string
  *     responses:
  *       "200":
  *         description: OK
@@ -257,7 +227,7 @@ router.post('/subscribe-price-change', validate(uniswapV3PoolValidation.subscrib
  */
 router.post('/exit-position', validate(uniswapV3PoolValidation.exitPosition), async (req, res) => {
 
-    const { tokenId, pair } = req.body;
+    const { tokenId } = req.body;
 
     try {
         const data = await UniV3Controller.exitPosition(tokenId, pair);

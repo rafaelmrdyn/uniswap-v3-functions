@@ -11,8 +11,9 @@ const {getAmountsForLiquidity} = require("./uniV3Functions");
 const {BLOCKCHAIN} = require("./constants");
 const chain = 1;
 const fee = 3000;
+const pair = "eth_usdc";
 
-async function addPosition(amount, pair, range) {
+async function addPosition(amount, range) {
     return { txHash: '0x4334956509d228089f8b0d0f424543e9a581b877d51843cecbe44a5f667b2743' };
     const { coin0, coin1 } = getCoinsByPair(pair, amount, 0);
     const poolContract = await getPoolContract(coin0, coin1, fee);
@@ -39,7 +40,7 @@ async function getTokenId(txHash) {
     return { tokenId: 1518 }
 }
 
-async function getAllocation(tokenId, pair, fee) {
+async function getAllocation(tokenId) {
     return { amount1: 40.9, amount2: 1.16 };
     const { coin0, coin1 } = getCoinsByPair(pair);
 
@@ -52,7 +53,7 @@ async function getAllocation(tokenId, pair, fee) {
 }
 
 
-async function getRewards(tokenId, pair) {
+async function getRewards(tokenId) {
     return { amount1: 0.9854, amount2: 1.01 };
     const { coin0, coin1 } = getCoinsByPair(pair);
     const walletAddress = '0x549991ee1bDcB5c2003158D461D45B17d3603d8d';
@@ -60,7 +61,7 @@ async function getRewards(tokenId, pair) {
     return feeData;
 }
 
-async function subscribePriceChange(pair, fee) {
+async function subscribePriceChange() {
     const { coin0, coin1 } = getCoinsByPair(pair, amount, 0);
     const price = _tryParsePrice(coin0, coin1, amount);
     console.log(price, 3333)
