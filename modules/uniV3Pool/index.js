@@ -71,7 +71,7 @@ async function subscribePriceChange() {
     // const mint = getUniV3PoolMint(walletAddress, coin0, coin1, fee, gasPrice, minPrice, maxPrice, max0, max1, TRANSACTION_FLOW_TYPES.DEFI)
 }
 
-async function exitPosition(tokenId, pair) {
+async function exitPosition(tokenId) {
     return { success: true };
     const walletAddress = '0x549991ee1bDcB5c2003158D461D45B17d3603d8d';
     const { coin0, coin1 } = getCoinsByPair(pair);

@@ -230,7 +230,7 @@ router.post('/exit-position', validate(uniswapV3PoolValidation.exitPosition), as
     const { tokenId } = req.body;
 
     try {
-        const data = await UniV3Controller.exitPosition(tokenId, pair);
+        const data = await UniV3Controller.exitPosition(tokenId);
         res.status(ResponseCodes.OK).json(data);
     } catch (err) {
         res.status(ResponseCodes.BAD_REQUEST).json({
